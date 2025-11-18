@@ -72,6 +72,69 @@
 </head>
 
 <body>
+  <style>
+    /* Define color variables for light and dark themes */
+    :root {
+    --background-color-light: #ffffff;
+    --text-color-light: #000000;
+    --background-color-dark: #121212;
+    --text-color-dark: #ffffff;
+    }
+
+    /* Default light mode styles */
+    body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+    }
+
+    .fixed-action-btn {
+      position: fixed;
+      z-index: 997; /* Ensures it's above other content */
+    }
+  </style>
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Function to apply the saved theme on page load
+    const applySavedTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    } else {
+    body.classList.remove('dark-mode');
+    }
+    };
+
+    // Apply the theme when the page is loaded
+    applySavedTheme();
+
+    // Event listener for the toggle button
+    themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // Save the user's preference to local storage
+    if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('theme', 'dark');
+    } else {
+    localStorage.setItem('theme', 'light');
+    }
+    });
+    });
+  </script>
+  <div class="fixed-action-btn" style="top: 15px; right: 24px;">
+  <button id="theme-toggle" class="btn-floating btn-large red">
+    <i class="large material-icons">Toggle Dark Mode</i>
+  </button>
+  </div>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGZH8HT"
   height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -150,6 +213,7 @@
         <a aria-label="Open Naveen's resume in a new tab" href="https://naveenkumar86420.github.io/assets/resume/Naveen_Kumar_Resume.pdf" target="_blank"
         class="waves-effect waves-dark teal-text"><i class="mdi-file-folder-open small"></i><span>Resume</span></a>  
       </li>
+      
     </ul>
   </nav>
 
